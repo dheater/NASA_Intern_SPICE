@@ -1,0 +1,10 @@
+.bc		binary CK
+.bes		binary sequence component EK
+.bpc		binary PCK
+.bsp		binary SPK
+.tf		text FK
+.ti		text IK
+.tls		text LSK
+.tm		text MK (furnsh)
+.tpc		text PCK
+.tsc		text SCLK
