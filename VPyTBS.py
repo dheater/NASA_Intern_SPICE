@@ -14,15 +14,8 @@ moon.trail = curve(color = color.green)
 
 with open('MoonPos.txt', 'r') as fd:
     for line in fd:
-        for word in line.split():
-            moon.pos.x = longdouble(word)
-            moon.pos.y = longdouble(word)
-            moon.pos.z = longdouble(word)
-            moon.trail.append(pos = moon.pos)
-            #rate(1)
+        moon.pos.x = (longdouble(line.split()[0]))
+        moon.pos.y = (longdouble(line.split()[1]))
+        moon.pos.z = (longdouble(line.split()[2]))
+        moon.trail.append(pos = moon.pos)
 fd.close()
-        
-        #vector a = (0, 1.5e11, 0)
-        #a.x =
-        #a.y =
-        #a.z =
