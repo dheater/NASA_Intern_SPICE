@@ -94,6 +94,7 @@ int main(){
 		//printf("\n\tEarth Pos: <%Lf, %Lf, %Lf>", posE[0], posE[1], posE[2]);
 		//printf("\n\tDistance: %Lf %Lf %Lf", distVec[0], distVec[1], distVec[2]);
 		//printf("\n\tUnit Vec: %Lf %Lf %Lf", unitVec[0],unitVec[1],unitVec[2]);
+		printf("\a");
 		fprintf(fp, "%Lf %Lf %Lf %Lf %Lf %Lf\n", posM[0], posM[1], posM[2], posE[0], posE[1], posE[2]);
 		//printf("\n\tFnet: %Lf %Lf %Lf", fNet[0], fNet[1], fNet[2]);
 		//printf("\n\tMoon P: %Lf %Lf %Lf\n\n", pM[0], pM[1], pM[2]);
