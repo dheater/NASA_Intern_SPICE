@@ -3,7 +3,7 @@
 #include <math.h>
 
 long double mag(long double *dVec){
-  return sqrt(dVec[0]*dVec[0] + dVec[1]*dVec[1] + dVec[2]*dVec[2]);
+  return (sqrt(dVec[0]*dVec[0] + dVec[1]*dVec[1] + dVec[2]*dVec[2]));
 }
 
 long double *toUnitVec(long double *dVec){

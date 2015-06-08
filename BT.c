@@ -18,5 +18,5 @@ int main(){
 		furnsh_c(str);
 	}
 
-	printf("\n\n\tCompleted...\n");
+	printf("\n\n\tCompleted...\n\n");
 }

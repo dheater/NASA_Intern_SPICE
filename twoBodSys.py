@@ -1,8 +1,8 @@
 from __future__ import division
 from visual import *
 
-scene = display(title = "Simple Two Body System", x = 0, y = 1080,
-                width = 960, height = 1080, background = color.black)
+scene = display(title = "Simple Two Body System",x = 480, y =120,
+                width = 960, height = 700, background = color.black)
 scene.range = (3e11, 3e11, 3e11)
 
 #Creation Statements
@@ -22,8 +22,8 @@ G = 6.7e-11 #unit: N*m^2/kg^2
 fnet = ((-1*G*ME*MS)/((mag(earth.pos-sun.pos))**2))*((earth.pos-sun.pos)/mag(earth.pos-sun.pos)) #unit: N
 
 #initial momentum
-earth.p = ME*vector(0, 3e4, 0) #unit: kg*m/s
-sun.p = MS*vector(0, 5e3, 0)
+earth.p = ME*vector(0, 3e4, 3e2) #unit: kg*m/s
+sun.p = MS*vector(0, 0, 0)
 
 t = 0 #unit: s
 dt = 86400 #unit: s

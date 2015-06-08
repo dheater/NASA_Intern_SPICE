@@ -1,0 +1,17 @@
+KPL/MK
+\begindata
+	PATH_VALUES		= ( '/SPICE/kernels')
+	PATH_SYMBOLS		= ( 'K' )
+	KERNELS_TO_LOAD	= (
+		'$K/dii_sc_050112_050703.bc',
+		'$K/dii_sc_050703_050704.bc',
+		'$K/08110_08152pl_live.bc',
+		'$K/08132_08137ra.bc',
+		'$K/di_v17.tf',
+		'$K/cas_v40.tf',
+		'$K/naif0008.tls',
+		'$K/dii_sclkscet_00008_science.tsc',
+		'$K/cas00137.tsc',
+		'$K/di_finalenc_nav_v3.bsp',
+		'$K/dif_preenc174_nav_v1.bsp'
+		)
