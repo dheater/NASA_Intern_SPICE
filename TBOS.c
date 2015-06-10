@@ -26,8 +26,10 @@ int main(){
 	radE		= 6371,
 	radM	= 1737,
 	
-	pE[3]	= {0*mE,80*mE,20*mE},
+	pE[3]	= {0*mE,0*mE,0*mE},
 	pM[3]	= {0*mM,51.512*mM,0*mM},
+	
+/* 	51.512  */
 	
 	posE[3]	= {0,0,0},
 	posM[3]	= {1.5e11,0,0},
@@ -46,7 +48,7 @@ int main(){
 	
 	t = 1,
 	
-	dt = (86400*7);
+	dt = (86400*7*26);
 	
 	printf("\n mE\t%Lf \n radE\t%Lf \n mM\t%Lf \n radM\t%Lf \n radDif\t%Lf \n",mE,radE,mM,radM,mag(distVec));
 	
@@ -94,7 +96,7 @@ int main(){
 		//printf("\n\tEarth Pos: <%Lf, %Lf, %Lf>", posE[0], posE[1], posE[2]);
 		//printf("\n\tDistance: %Lf %Lf %Lf", distVec[0], distVec[1], distVec[2]);
 		//printf("\n\tUnit Vec: %Lf %Lf %Lf", unitVec[0],unitVec[1],unitVec[2]);
-		printf("\a");
+		//printf("\a");
 		fprintf(fp, "%Lf %Lf %Lf %Lf %Lf %Lf\n", posM[0], posM[1], posM[2], posE[0], posE[1], posE[2]);
 		//printf("\n\tFnet: %Lf %Lf %Lf", fNet[0], fNet[1], fNet[2]);
 		//printf("\n\tMoon P: %Lf %Lf %Lf\n\n", pM[0], pM[1], pM[2]);
