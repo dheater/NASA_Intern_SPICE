@@ -38,7 +38,7 @@ void evaluate(
 	double t,
 	double dt,
 	vector<double> &posOut,
-	vector<double> &velOut) 
+	vector<double> &velOut)
 	{
 		double halfDt = dt * double(0.5);
 		double tMid = t + halfDt;
@@ -52,7 +52,6 @@ void evaluate(
 		vector<double> velD = VecAdd(velC, VecScaleMulti(dVelC, dt)); // velC + dVelC * dt;
 		vector<double> posD = VecAdd(posC, VecScaleMulti(velC, dt)); // posC + velC * dt;
 		vector<double> dVelD = accelFunc(posD, velD, t + dt);
-		
 		//velOut = velIn + dt * double(1.0 / 6.0) * (dVelIn + double(2.0) * (dVelB + dVelC) + dVelD);
 		velOut = VecAdd(velIn, VecScaleMulti(VecScaleMulti(VecAdd(dVelD, VecAdd(dVelIn, VecScaleMulti(VecAdd(dVelB, dVelC), double(2.0)))), double(1.0/6.0)), dt));
 		
@@ -64,14 +63,14 @@ int main(){
 	
 	vector<double> posNew(3), velNew(3);
 	vector<double> pos(3), vel(3);
-	double t=0,dt=86400*7;
+	double t=0,dt=1;
 	
 	long double counter(0.0);
 	
 	ofstream f("MoonPos.txt");
 	
-	pos = { 1.5e11,0,0 };
-	vel = { 0, 51.546854077948, 0};
+	pos = { 7e6,0,0 };
+	vel = { 0, 7545.6867982406, 0};
 	
 	while(1){
 	
