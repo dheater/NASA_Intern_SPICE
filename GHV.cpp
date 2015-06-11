@@ -7,14 +7,45 @@
 using namespace std;
 
 template<typename Vector, typename Scalar>
-struct DnCA {
-	const Vector accel;
-	const Scalar drag;
+struct DragAndConstAccel {
+    const Vector accel;
+    const Scalar drag;
+ 
+    DragAndConstAccel(const Vector &accel, double drag) :
+            accel(accel), drag(drag) {
+    }
+ 
+    Vector operator()(const Vector &pos, const Vector &vel, Scalar t) {
+        return accel - vel * drag;
+    }
+};
 
-DnCA(const Vector &accel, double drag) :
-	accel(accel), drag(drag){
+/* DragAndConstAccel(const Vector &pos, const Vector &vel, Scalar t) {
+ * 	return accel - vel * drag
+ * }
+ */
+ 
+void simLoop() {
+    IntegratorRK4 integrator;
+    vector<double > poss, vels, nextPoss, nextVels;
+    double t = 0.0, dt = 1.0 / 100;
+    while (true) {
+        for (size_t i = 0; i < poss.size(); i++) {
+            integrator.evaluate(poss[i],
+                    vels[i],
+                    DragAndConstAccel<vector<double>, vector<double> >(1.0, 0.25),
+                    t,
+                    dt,
+                    nextPoss[i],
+                    nextVels[i]);
+        }
+        t += dt;
+        poss.swap(nextPoss);
+        vels.swap(nextVels);
+    }
 }
-Vector operator()(const Vector &xv, const Vector &dxvdt, Scalar t){
+
+/* 
 		for(int i(0);i<6;++i){
 			vel[i]=0;
 		}
@@ -29,36 +60,16 @@ Vector operator()(const Vector &xv, const Vector &dxvdt, Scalar t){
 		
 		dxvdt[3] = fNet * xv[0];
 		dxvdt[4] = fNet * xv[1];
-		dxvdt[5] = fNet * xv[2];
-	}
-};
- 
-void simLoop() {
-    IntegratorRK4 integrator;
- 
-    // 1D particle states (positions and velocities) & buffers for next state
-    std::vector<double> poss, vels, nextPoss, nextVels;
- 
-    // system time state and timestep size
-    double t = 0.f, dt = 1.f / 100;
-	double vect = {0,0,0}
-    while (true) {
-        // integrate accelerations to velocities & velocities to positions
-        for (size_t i = 0; i < poss.size(); i++) {
-            integrator.evaluate(poss[i], vels[i],DnCA<vector<double>, vector<double> >(1,0.25), t, dt, nextPoss[i], nextVels[i]);
-        }
-        // take a timestep
-        t += dt;
-        // advance state to the next state
-        poss.swap(nextPoss);
-        vels.swap(nextVels);
-    }
-}
+		dxvdt[5] = fNet * xv[2]; 
+*/
 
 
 int main(){
 	
+	DragAndConstAccel<vector<double>, vector<double> > DACA;
 	
+	
+	simLoop();
 	return 0;
 	
 }

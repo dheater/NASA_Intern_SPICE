@@ -1,16 +1,27 @@
+
+/* 
+This program calculates net force of two bodies, 
+updating their respective positions and velocities, 
+then outputing their position vectors to a file to be read by vPython simulation (VPyTBS.py). 
+*/
+
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 
+/* Spice-specific headers; Not important for this program --yet--  */
 #include "/SPICE/cspice/include/SpiceUsr.h"
 #include "/SPICE/cspice/src/cspice/furnsh_c.c"
 
+/* SIZE is for SpiceChar array-size prompt function. Again, unimportant at the moment.  */
 #define SIZE 100
+
 #define G -6.67384e-11
 
-void loadKernel();
-long double mag(long double vec[3]);
-long double *toUnitVec(long double *dVec);
+void loadKernel(); // Loads spice kernels
+
+long double mag(long double vec[3]); // Magnitude func
+long double *toUnitVec(long double *dVec); // Unit-vec calc func
 
 
 int main(){
@@ -20,23 +31,22 @@ int main(){
 	//loadKernel();
 	
 	long double 
-	mE		= 5.97e24,
-	mM		= 5000,
+	mE		= 5.97e24, // Mass earth
+	mM		= 5000, // Mass moon
 	
-	radE		= 6371,
-	radM	= 1737,
+	radE		= 6371, // Radius earth
+	radM	= 1737, // Radius moon
 	
-	pE[3]	= {0*mE,0*mE,0*mE},
-	pM[3]	= {0*mM,51.512*mM,0*mM},
+	pE[3]	= {0*mE,0*mE,0*mE}, // Momentum (not vel) earth
+	pM[3]	= {0*mM,51.512*mM,0*mM}, // Momentum moon
 	
-/* 	51.512  */
 	
-	posE[3]	= {0,0,0},
-	posM[3]	= {1.5e11,0,0},
+	posE[3]	= {0,0,0}, // Position earth
+	posM[3]	= {1.5e11,0,0}, // Pos moon
 	
-	distVec[3]= {posM[0]-posE[0], posM[1]-posE[1], posM[2]-posE[2]},
+	distVec[3]= {posM[0]-posE[0], posM[1]-posE[1], posM[2]-posE[2]}, // Distance between earth & moon
 	
-	fNet[3];
+	fNet[3]; // Net force
 	
 	long double *unitVec = (long double * )malloc(3*sizeof(long double));
 	
@@ -46,9 +56,9 @@ int main(){
 	
 	long double
 	
-	t = 1,
+	t = 1, // Time counter
 	
-	dt = (86400*7*26);
+	dt = (86400*7*26); // Time step
 	
 	printf("\n mE\t%Lf \n radE\t%Lf \n mM\t%Lf \n radM\t%Lf \n radDif\t%Lf \n",mE,radE,mM,radM,mag(distVec));
 	
@@ -60,14 +70,14 @@ int main(){
 	
 	for(int i=0;i<3;++i){
 		
-		fNet[i] = ((G*mE*mM)/(mag(distVec)*mag(distVec)))*(unitVec[i]);
+		fNet[i] = ((G*mE*mM)/(mag(distVec)*mag(distVec)))*(unitVec[i]); // Net force calculation (iterates per-dimension)
 		
 		printf("\n\tfNet[%d]: %Lf", i, fNet[i]);
 		
 	}
 	
 	FILE *fp;
-	fp = fopen("MoonPos.txt", "w+");
+	fp = fopen("MoonPos.txt", "w+"); // Output file
 	
 	int userIn=0;
 	
@@ -77,20 +87,20 @@ int main(){
 	while(t>0){
 		
 		for(int i=0;i<3;++i){
-			fNet[i] = ((G*mE*mM)/(mag(distVec)*mag(distVec)))*(unitVec[i]);
+			fNet[i] = ((G*mE*mM)/(mag(distVec)*mag(distVec)))*(unitVec[i]); // Update Netforce
 			
-			pE[i]+=(fNet[i]*dt);
+			pE[i]+=(fNet[i]*dt);   // Updating momentum
 			pM[i]+=(fNet[i]*dt);
 			
-			posE[i]+=(pE[i]/mE)*dt;
+			posE[i]+=(pE[i]/mE)*dt; // Updating pos
 			posM[i]+=(pM[i]/mM)*dt;
 			
-			distVec[i] = posM[i] - posE[i];
+			distVec[i] = posM[i] - posE[i]; // Updating dist
 			
-			unitVec[i]=distVec[i]/mag(distVec);
+			unitVec[i]=distVec[i]/mag(distVec); // Updating unitVec
 		}
 		
-		t+=dt;
+		t+=dt; // Incr
 		
 		//printf("\n\tMoon Pos: <%Lf, %Lf, %Lf> ", posM[0], posM[1], posM[2]);
 		//printf("\n\tEarth Pos: <%Lf, %Lf, %Lf>", posE[0], posE[1], posE[2]);
@@ -121,7 +131,7 @@ int main(){
 	return 0;
 }
 
-void loadKernel(){
+void loadKernel(){ // This is for SPICE kernel load ; unimportant
 	
 	SpiceChar str[SIZE];
 	
@@ -153,23 +163,3 @@ long double *toUnitVec(long double *dVec){
   return uVec;
 }
 
-/*
-while t >= 0:
-    rate(100)
-    fnet = ((-1*G*ME*MS)/((mag(earth.pos-sun.pos))**2))*((earth.pos-sun.pos)/mag(earth.pos-sun.pos))
-    earth.p += fnet * dt
-    sun.p += fnet * dt
-    earth.pos += (earth.p/ME) * dt
-    sun.pos += (sun.p/MS) * dt
-    
-    p.pos = earth.pos
-    f.pos = earth.pos
-    p.axis = earth.p * 4e-19
-    f.axis = fnet * 2e-12
-    
-    earth.trail.append(pos = earth.pos)
-    sun.trail.append(pos = sun.pos)
-    print("Pos:", earth.pos)
-    
-    t += dt
-*/
