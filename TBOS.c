@@ -58,7 +58,7 @@ int main(){
 	
 	t = 1, // Time counter
 	
-	dt = (86400*7*26); // Time step
+	dt = (.01); // Time step
 	
 	printf("\n mE\t%Lf \n radE\t%Lf \n mM\t%Lf \n radM\t%Lf \n radDif\t%Lf \n",mE,radE,mM,radM,mag(distVec));
 	
@@ -112,7 +112,7 @@ int main(){
 		//printf("\n\tMoon P: %Lf %Lf %Lf\n\n", pM[0], pM[1], pM[2]);
 		
 		
-		if(t>dt*userIn){
+		if(t>userIn){
 			break;
 		}
 		
