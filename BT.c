@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "/SPICE/cspice/src/cspice/furnsh_c.c"
+#include <SpiceUsr.h>
 
 #define SIZESTR 100
 
@@ -9,7 +9,7 @@ int main(){
 
 	printf("\n\n\tRunning...\n\n");
 	prompt_c("Enter setup file name: ", SIZESTR, str);
-	
+
 	if(str[0]=='q'){
 		printf("\n\n\tKF.txt is loading to kernel pool...\n");
 		furnsh_c("KF.txt");
