@@ -1,4 +1,4 @@
-SPICEDIR:=/cspice
+SPICEDIR:=/opt/cspice
 
 CFLAGS:=-I$(SPICEDIR)/include
 CXXFLAGS:=$(CFLAGS) -std=c++11
