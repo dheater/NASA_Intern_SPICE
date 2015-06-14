@@ -49,9 +49,9 @@ int main() {
 
     long double *unitVec = (long double *)malloc(3 * sizeof(long double));
 
-    printf(" Earth Position: <%.2e,%.2e,%.2e>", posE[0], posE[1], posE[2]);
-    printf(" Moon Position: <%.2e,%.2e,%.2e>", posM[0], posM[1], posM[2]);
-    printf(" Distance: <%.2e,%.2e,%.2e>", distVec[0], distVec[1], distVec[2]);
+    printf(" Earth Position: <%.2Le,%.2Le,%.2Le>", posE[0], posE[1], posE[2]);
+    printf(" Moon Position: <%.2Le,%.2Le,%.2Le>", posM[0], posM[1], posM[2]);
+    printf(" Distance: <%.2Le,%.2Le,%.2Le>", distVec[0], distVec[1], distVec[2]);
 
     long double
 
