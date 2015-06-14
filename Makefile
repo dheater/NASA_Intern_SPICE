@@ -1,6 +1,6 @@
 SPICEDIR:=/opt/cspice
 
-CFLAGS:=-I$(SPICEDIR)/include
+CFLAGS:=-Wall -I$(SPICEDIR)/include
 CXXFLAGS:=$(CFLAGS) -std=c++11
 LDFLAGS:=$(SPICEDIR)/lib/cspice.a -lm
 PROGRAMS:= BT GHF TBOS TKV
@@ -19,5 +19,5 @@ TBOS: TBOS.c
 TKV: TKV.c
 	$(CC) $^ -o $@ $(CFLAGS) $(LDFLAGS)
 
-clean: $(PROGRAMS)
-	rm -f $^
+clean:
+	rm -f $(PROGRAMS)

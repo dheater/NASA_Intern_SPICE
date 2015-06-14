@@ -19,4 +19,6 @@ int main() {
     }
 
     printf("\n\n\tCompleted...\n\n");
+
+    return 0;
 }
